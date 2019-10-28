@@ -15,8 +15,8 @@ from linebot.models import (
 
 app = Flask(__name__)
 
-line_bot_api = LineBotApi('4M7OKL3bDlZC/dRpKMyXvp3DhGT2e3HBDO+lBDzbRkkHBG166ljOXMIldXImFp7OLuSqjAvA9FLAmMbdH0AqVMbcp0gtqTmq7ecdeOcuRJ4Omp3JYGpPDl1HH/tLr+Z8i5uj7I4xYRqjOl1w4aEnNgdB04t89/1O/w1cDnyilFU=')
-handler = WebhookHandler('d43ba340b3cb8752365fb2101ff77ebf')
+line_bot_api = LineBotApi('YOUR_LINE_ACCESS_TOKEN')
+handler = WebhookHandler('YOUR_LINE_ACCESS_KEY')
 
 
 @app.route("/callback", methods=['POST'])
