@@ -1,6 +1,6 @@
-
 import os
 import sys
+import json
 from flask import Flask, request, abort
 
 from linebot import (
@@ -10,14 +10,14 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
+    MessageEvent, TextMessage, TextSendMessage, ImageSendMessage
 )
 
 app = Flask(__name__)
 
 line_bot_api = LineBotApi('YOUR_LINE_ACCESS_TOKEN')
 handler = WebhookHandler('YOUR_LINE_ACCESS_KEY')
-
+#profile = line_bot_api.get_profile(user_id)
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -40,10 +40,17 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text="Don't Know")) #TextSendMessage(text=event.message.text))
-
+    profile = line_bot_api.get_profile(event.source.user_id)
+    if(event.message.text == "nama"):
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=profile.display_name)) #TextSendMessage(text=event.message.text))
+    elif(event.message.text == "gambar"):
+        line_bot_api.reply_message(
+            event.reply_token,
+            ImageSendMessage(
+                original_content_url = profile.picture_url,
+                preview_image_url = profile.picture_url))
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
