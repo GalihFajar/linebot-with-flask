@@ -44,16 +44,16 @@ def handle_message(event):
 
     if(event.message.text[0] == "/"):
         user_input = event.message.text[1:]
-            if(user_input == "nama"):
-                line_bot_api.reply_message(
-                    event.reply_token,
-                    TextSendMessage(text=profile.display_name)) #TextSendMessage(text=event.message.text))
-            elif(user_input == "gambar"):
-                line_bot_api.reply_message(
-                    event.reply_token,
-                    ImageSendMessage(
-                        original_content_url = profile.picture_url,
-                        preview_image_url = profile.picture_url))
+        if(user_input == "nama"):
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text=profile.display_name)) #TextSendMessage(text=event.message.text))
+        elif(user_input == "gambar"):
+            line_bot_api.reply_message(
+                event.reply_token,
+                ImageSendMessage(
+                    original_content_url = profile.picture_url,
+                    preview_image_url = profile.picture_url))
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
