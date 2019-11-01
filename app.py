@@ -41,7 +41,6 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     profile = line_bot_api.get_profile(event.source.user_id)
-
     if(event.message.text[0] == "/"):
         user_input = event.message.text[1:]
         if(user_input == "nama"):
@@ -54,6 +53,11 @@ def handle_message(event):
                 ImageSendMessage(
                     original_content_url = profile.picture_url,
                     preview_image_url = profile.picture_url))
+    else:
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text = "I cannot understand you.")
+        )
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
